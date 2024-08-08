@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[ant]</title>
+  <style>
+  @font-face {
+    font-family: 'Perfect DOS VGA 437';
+    src: url('Perfect DOS VGA 437.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: 'Perfect DOS VGA 437', monospace;
+    text-align: center;
+    cursor: url('cur827.cur'), default;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    filter: blur(5px);
+    transition: filter 0.5s ease;
+    overflow: hidden;
+  }
+
+  a, a:hover {
+    cursor: url('c.cur'), progress;
+    color: white;
+    text-decoration: none;
+  }
+
+  body.clicked {
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    filter: blur(0px);
+  }
+
+  .centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 12px;
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .fading-text {
+    font-size: 24px;
+    opacity: 0;
+    animation: fadeInOut 10s linear infinite;
+    margin-top: 10px;
+  }
+
+  .fading-text:nth-child(1) { animation-delay: 0s; }
+  .fading-text:nth-child(2) { animation-delay: 2s; }
+  .fading-text:nth-child(3) { animation-delay: 4s; }
+  .fading-text:nth-child(4) { animation-delay: 6s; }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .ant-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .ant {
+    position: absolute;
+    font-size: 24px;
+    animation: antFall 12s linear infinite;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  @keyframes antFall {
+    0% {
+      top: -10px;
+      left: var(--start-position);
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      left: var(--start-position);
+      opacity: 0;
+    }
+  }
+
+  .text-container img {
+    margin-bottom: 20px;
+  }
+
+  .contact-button {
+    font-size: 24px;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-offset: 3px;
+    margin-top: 20px;
+  }
+
+  /* Styles for the external buttons */
+  .external-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+  }
+
+  .external-buttons a {
+    margin-left: 10px;
+    text-decoration: underline;
+  }
+  </style>
+</head>
+<body>
+  <audio id="myAudio" loop>
+    <source src="VISION.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="external-buttons">
+    <a href="instagram.com/antfromsc">IG</a>
+    <a href="/portfolio">PORTFOLIO</a>
+  </div>
+
+  <div class="ant-rain"></div>
+  <div class="centered">
+    <h1>LIFE IS A GAME.<br>MONEY IS HOW WE KEEP SCORE.</h1>
+
+    <div class="text-container">
+      <img src="globe.gif" alt="Globe animation">
+      <div class="fading-text">WEB DEVELOPMENT</div>
+      <div class="fading-text">VIDEO EDITING</div>
+      <div class="fading-text">VIDEOGRAPHY</div>
+      <div class="fading-text">PHOTOGRAPHY</div>
+      <a class="contact-button" href="mailto:ant@uliexpress.co">CONTACT</a>
+    </div>
+  </div>
+
+  <footer>[made by ant]</footer>
+
+  <script>
+  function createAnt() {
+    const ant = document.createElement('div');
+    ant.classList.add('ant');
+    ant.textContent = '🐜';
+    ant.style.setProperty('--start-position', `${Math.random() * 100}%`);
+    document.querySelector('.ant-rain').appendChild(ant);
+  }
+
+  function rainAnts(numAnts) {
+    for (let i = 0; i < numAnts; i++) {
+      createAnt();
+    }
+  }
+
+  setInterval(() => {
+    rainAnts(1);
+  }, 250);
+
+  const audio = document.getElementById("myAudio");
+
+  document.body.addEventListener('click', function() {
+    this.classList.add('clicked');
+    audio.play();
+  });
+  </script>
+</body>
+</html>
